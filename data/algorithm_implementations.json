@@ -1,0 +1,210 @@
+[
+    {
+        "Algorithm": "AES",
+        "File": "AlgorithmsBlock.py",
+        "EncryptFn": "aes_encrypt_block",
+        "DecryptFn": "aes_decrypt_block",
+        "ComponentFns": [
+            "sub_bytes", "shift_rows", "mix_columns", "inv_shift_rows", "inv_sub_bytes", "inv_mix_columns",
+            "add_round_key", "aes_key_expansion"
+        ],
+        "KeyScheduleFn": "aes_key_expansion",
+        "ComponentFile": "Components.py",
+        "BlockSize": 16,
+        "KeySizes": [16, 24, 32],
+        "Parameters": {
+            "rounds": {"128": 10, "192": 12, "256": 14}
+        }
+    },
+    {
+        "Algorithm": "DES",
+        "File": "AlgorithmsBlock.py", 
+        "EncryptFn": "des_encrypt_block",
+        "DecryptFn": "des_decrypt_block",
+        "ComponentFns": [
+            "des_key_schedule", "initial_permutation", "final_permutation", "des_f", "feistel_cipher"
+        ],
+        "KeyScheduleFn": "des_key_schedule",
+        "ComponentFile": "Components.py",
+        "BlockSize": 8,
+        "KeySizes": [8],
+        "Parameters": {
+            "rounds": 16
+        }
+    },
+    {
+        "Algorithm": "3DES",
+        "File": "AlgorithmsBlock.py",
+        "EncryptFn": "triple_des_encrypt_block", 
+        "DecryptFn": "triple_des_decrypt_block",
+        "ComponentFns": [
+            "des_encrypt_block", "des_decrypt_block", "des_key_schedule"
+        ],
+        "KeyScheduleFn": "des_key_schedule",
+        "ComponentFile": "Components.py",
+        "BlockSize": 8,
+        "KeySizes": [24],
+        "Parameters": {
+            "rounds": 48,
+            "keys_count": 3
+        }
+    },
+    {
+        "Algorithm": "Blowfish",
+        "File": "AlgorithmsBlock.py",
+        "EncryptFn": "blowfish_encrypt_block",
+        "DecryptFn": "blowfish_decrypt_block", 
+        "ComponentFns": [
+            "blowfish_key_schedule", "blowfish_f", "_blowfish_encrypt_block"
+        ],
+        "KeyScheduleFn": "blowfish_key_schedule",
+        "ComponentFile": "Components.py",
+        "BlockSize": 8,
+        "KeySizes": [4, 8, 16, 24, 32, 40, 48, 56],
+        "Parameters": {
+            "rounds": 16,
+            "p_array_size": 18,
+            "s_boxes_count": 4
+        }
+    },
+    {
+        "Algorithm": "Twofish",
+        "File": "AlgorithmsBlock.py",
+        "EncryptFn": "twofish_encrypt_block",
+        "DecryptFn": "twofish_decrypt_block",
+        "ComponentFns": [
+            "twofish_key_schedule", "twofish_f", "_twofish_gen_sboxes", "_twofish_h"
+        ],
+        "KeyScheduleFn": "twofish_key_schedule", 
+        "ComponentFile": "Components.py",
+        "BlockSize": 16,
+        "KeySizes": [16, 24, 32],
+        "Parameters": {
+            "rounds": 16,
+            "q_boxes": 2,
+            "mds_matrix": true
+        }
+    },
+    {
+        "Algorithm": "Serpent",
+        "File": "AlgorithmsBlock.py",
+        "EncryptFn": "serpent_encrypt_block",
+        "DecryptFn": "serpent_decrypt_block",
+        "ComponentFns": [
+            "serpent_key_schedule", "apply_sbox_layer", "apply_permutation"
+        ],
+        "KeyScheduleFn": "serpent_key_schedule",
+        "ComponentFile": "Components.py", 
+        "BlockSize": 16,
+        "KeySizes": [16, 24, 32],
+        "Parameters": {
+            "rounds": 32,
+            "sboxes_count": 8,
+            "linear_transform": "serpent_linear_p"
+        }
+    },
+    {
+        "Algorithm": "Camellia",
+        "File": "AlgorithmsBlock.py",
+        "EncryptFn": "camellia_encrypt_block",
+        "DecryptFn": "camellia_decrypt_block",
+        "ComponentFns": [
+            "camellia_f", "camellia_fl", "feistel_rounds_step"
+        ],
+        "KeyScheduleFn": null,
+        "ComponentFile": "Components.py",
+        "BlockSize": 16,
+        "KeySizes": [16, 24, 32],
+        "Parameters": {
+            "rounds": {"128": 18, "192": 24, "256": 24},
+            "fl_layers": true
+        }
+    },
+    {
+        "Algorithm": "CAST-128", 
+        "File": "AlgorithmsBlock.py",
+        "EncryptFn": "cast128_encrypt_block",
+        "DecryptFn": "cast128_decrypt_block",
+        "ComponentFns": [
+            "cast128_f", "feistel_cipher"
+        ],
+        "KeyScheduleFn": null,
+        "ComponentFile": "Components.py",
+        "BlockSize": 8,
+        "KeySizes": [5, 8, 10, 12, 16],
+        "Parameters": {
+            "rounds": {"40-80": 12, "81-128": 16}
+        }
+    },
+    {
+        "Algorithm": "IDEA",
+        "File": "AlgorithmsBlock.py", 
+        "EncryptFn": "idea_encrypt_block",
+        "DecryptFn": "idea_decrypt_block",
+        "ComponentFns": [
+            "idea_round", "idea_output_transform", "idea_mul", "idea_add", 
+            "split_into_four_16bit", "modular_multiplicative_inverse"
+        ],
+        "KeyScheduleFn": null,
+        "ComponentFile": "Components.py",
+        "BlockSize": 8,
+        "KeySizes": [16],
+        "Parameters": {
+            "rounds": 8,
+            "word_size": 16,
+            "structure": "lai_massey"
+        }
+    },
+    {
+        "Algorithm": "RC5",
+        "File": "AlgorithmsBlock.py",
+        "EncryptFn": "rc5_encrypt_block", 
+        "DecryptFn": "rc5_decrypt_block",
+        "ComponentFns": [
+            "split_into_two_w", "combine_two_w", "rotate_left"
+        ],
+        "KeyScheduleFn": null,
+        "ComponentFile": "Components.py",
+        "BlockSize": 8,
+        "KeySizes": [8, 16, 32, 64, 128, 256],
+        "Parameters": {
+            "rounds": 12,
+            "word_size": 32,
+            "variable_params": true
+        }
+    },
+    {
+        "Algorithm": "RC6",
+        "File": "AlgorithmsBlock.py",
+        "EncryptFn": "rc6_encrypt_block",
+        "DecryptFn": "rc6_decrypt_block", 
+        "ComponentFns": [
+            "split_into_four_w", "combine_four_w", "rotate_left"
+        ],
+        "KeyScheduleFn": null,
+        "ComponentFile": "Components.py",
+        "BlockSize": 16,
+        "KeySizes": [16, 24, 32],
+        "Parameters": {
+            "rounds": 20,
+            "word_size": 32
+        }
+    },
+    {
+        "Algorithm": "SEED",
+        "File": "AlgorithmsBlock.py",
+        "EncryptFn": "seed_encrypt_block",
+        "DecryptFn": "seed_decrypt_block",
+        "ComponentFns": [
+            "seed_f", "g_function", "feistel_cipher"
+        ],
+        "KeyScheduleFn": null,
+        "ComponentFile": "Components.py", 
+        "BlockSize": 16,
+        "KeySizes": [16],
+        "Parameters": {
+            "rounds": 16,
+            "s_boxes": 2
+        }
+    }
+]

@@ -1,0 +1,224 @@
+# ========================================
+# Python
+# ========================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# ========================================
+# Virtual Environments
+# ========================================
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+llama-env/
+.venv/
+
+# ========================================
+# IDEs and Editors
+# ========================================
+# VSCode
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# ========================================
+# OS Generated Files
+# ========================================
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+*~
+.directory
+.Trash-*
+
+# ========================================
+# Project Specific - Models & Large Files
+# ========================================
+# Downloaded models (too large for git)
+models/*
+!models/.gitkeep
+
+# Model checkpoints
+*.ckpt
+*.pth
+*.pt
+*.bin
+*.safetensors
+
+# Hugging Face cache
+.cache/
+transformers_cache/
+
+# ========================================
+# Project Specific - Data Files
+# ========================================
+# Generated embeddings and indexes (can be regenerated)
+data/*.pkl
+data/*.index
+data/algos_meta.pkl
+data/algos.index
+data/algorithm_embeddings.pkl
+
+# Generated datasets
+data/block_cipher_dataset.jsonl
+data/finetune.jsonl
+data/embedding_summary.txt
+
+# Keep these essential data files (track in git)
+!data/algorithms.json
+!data/algorithm_implementations.json
+
+# Documents
+*.docx
+*.pdf
+*.doc
+Block Cipher Table.docx
+data/BlockCipherTable.docx
+
+# ========================================
+# Logs and Temporary Files
+# ========================================
+*.log
+logs/
+*.tmp
+*.bak
+.~*
+
+# ========================================
+# Personal Notes and Instructions
+# ========================================
+instructions.txt
+notes.txt
+TODO.txt
+
+# Cleanup guides (temporary, not needed in git)
+PROJECT_CLEANUP_GUIDE.md
+SUMMARY.md
+START_HERE.md
+cleanup.sh
+cleanup.bat
+
+# ========================================
+# Compiled Code
+# ========================================
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+
+# llama.cpp build artifacts
+llama.cpp/build/
+llama.cpp/models/
+llama.cpp/*.o
+llama.cpp/*.so
+llama.cpp/*.exe
+llama.cpp/CMakeFiles/
+
+# ========================================
+# Algorithm Docs (separate project)
+# ========================================
+algorithm-docs/
+
+# ========================================
+# Environment and Config
+# ========================================
+.env
+.env.local
+.env.*.local
+config.local.yaml
+*.secret
+
+# ========================================
+# Testing
+# ========================================
+.coverage
+htmlcov/
+.pytest_cache/
+test-results/
+
+# ========================================
+# Build Outputs
+# ========================================
+*.whl
+build/
+dist/
+
+# ========================================
+# Git
+# ========================================
+*.orig
+*.rej
+
