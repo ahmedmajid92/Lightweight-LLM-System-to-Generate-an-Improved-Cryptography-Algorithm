@@ -1177,3 +1177,127 @@ def seed_f(left: int, round_key: int) -> int:
     
     # Apply second part of the function
     return rotate_left(result, 8, 32) ^ (g_out[0] + g_out[1]) ^ k2
+
+# --- RC5 Implementation ---
+# RC5 constants
+RC5_P32 = 0xB7E15163  # P for w=32 (odd((e-2) * 2^32))
+RC5_Q32 = 0x9E3779B9  # Q for w=32 (odd((phi-1) * 2^32)), phi = golden ratio
+
+def rc5_key_schedule(key: bytes, w: int = 32, r: int = 12) -> List[int]:
+    """
+    Generate RC5 key schedule (S-array).
+    
+    Algorithm: RC5
+    Stage: key_schedule
+    
+    Args:
+        key: Secret key (0-255 bytes)
+        w: Word size in bits (16, 32, or 64)
+        r: Number of rounds (0-255)
+    
+    Returns:
+        S-array with 2*(r+1) words
+    """
+    # Constants based on word size
+    if w == 16:
+        P = 0xB7E1
+        Q = 0x9E37
+    elif w == 32:
+        P = RC5_P32
+        Q = RC5_Q32
+    elif w == 64:
+        P = 0xB7E151628AED2A6B
+        Q = 0x9E3779B97F4A7C15
+    else:
+        raise ValueError("Word size must be 16, 32, or 64")
+    
+    u = w // 8  # bytes per word
+    b = len(key)  # key length in bytes
+    c = max(1, (b + u - 1) // u)  # key in words (at least 1)
+    t = 2 * (r + 1)  # size of S-array
+    
+    mod = 1 << w  # 2^w for modular arithmetic
+    
+    # Step 1: Convert key bytes to words (little-endian)
+    L = [0] * c
+    for i in range(b - 1, -1, -1):
+        L[i // u] = (L[i // u] << 8) + key[i]
+    
+    # Step 2: Initialize S-array
+    S = [0] * t
+    S[0] = P
+    for i in range(1, t):
+        S[i] = (S[i-1] + Q) % mod
+    
+    # Step 3: Mix key into S-array
+    i = j = 0
+    A = B = 0
+    iterations = 3 * max(t, c)
+    
+    for _ in range(iterations):
+        A = S[i] = rotate_left((S[i] + A + B) % mod, 3, w)
+        B = L[j] = rotate_left((L[j] + A + B) % mod, (A + B) % w, w)
+        i = (i + 1) % t
+        j = (j + 1) % c
+    
+    return S
+
+# --- RC6 Implementation ---
+def rc6_key_schedule(key: bytes, w: int = 32, r: int = 20) -> List[int]:
+    """
+    Generate RC6 key schedule (S-array).
+    
+    Algorithm: RC6
+    Stage: key_schedule
+    
+    Args:
+        key: Secret key (0-255 bytes)
+        w: Word size in bits (typically 32)
+        r: Number of rounds (typically 20)
+    
+    Returns:
+        S-array with 2*r+4 words
+    """
+    # RC6 uses same constants as RC5
+    if w == 16:
+        P = 0xB7E1
+        Q = 0x9E37
+    elif w == 32:
+        P = RC5_P32
+        Q = RC5_Q32
+    elif w == 64:
+        P = 0xB7E151628AED2A6B
+        Q = 0x9E3779B97F4A7C15
+    else:
+        raise ValueError("Word size must be 16, 32, or 64")
+    
+    u = w // 8  # bytes per word
+    b = len(key)  # key length in bytes
+    c = max(1, (b + u - 1) // u)  # key in words (at least 1)
+    t = 2 * r + 4  # size of S-array for RC6
+    
+    mod = 1 << w  # 2^w for modular arithmetic
+    
+    # Step 1: Convert key bytes to words (little-endian)
+    L = [0] * c
+    for i in range(b - 1, -1, -1):
+        L[i // u] = (L[i // u] << 8) + key[i]
+    
+    # Step 2: Initialize S-array
+    S = [0] * t
+    S[0] = P
+    for i in range(1, t):
+        S[i] = (S[i-1] + Q) % mod
+    
+    # Step 3: Mix key into S-array (same as RC5)
+    i = j = 0
+    A = B = 0
+    iterations = 3 * max(t, c)
+    
+    for _ in range(iterations):
+        A = S[i] = rotate_left((S[i] + A + B) % mod, 3, w)
+        B = L[j] = rotate_left((L[j] + A + B) % mod, (A + B) % w, w)
+        i = (i + 1) % t
+        j = (j + 1) % c
+    
+    return S
